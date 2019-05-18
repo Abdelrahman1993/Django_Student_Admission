@@ -2,12 +2,25 @@
 
 
 # How to use Student Admission
+
+
 --Make sure to have python 3.X
+
+
 --Clone the project
+
+
 --Create virtual environment
+
 --install Dependencies using requirements.txt
---change database settings
+
+
+--change database settings if you like to use other database than sqllite ang run migration
+
+
 --change email the dummy account to send emails from settings.py and views.py in accounts app
+
+
 --run the project using python manage.py runserver
 
 
