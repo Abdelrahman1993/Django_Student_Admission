@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<div class="container">
+
+ <div class="text-center my-4">
+    <a href="{% url 'accounts:dashboard' 'first' %}" class="btn btn-info my-2" role="button">First Semester</a>
+    <a href="{% url 'accounts:dashboard' 'second' %}" class="btn btn-info" role="button">Second Semester</a>
+ </div>
+
+<!--  start of messages-->
+  <div class="alert alert-info text-center" role="alert">
+        Max limit Of Hours For The Semester Is 50 Hours
+  </div>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{message.tags}} text-center" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+<!--  end of messages-->
+
+<!--start of subjects-->
+<div class="subjects">
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">subject</th>
+        <th scope="col">Hours</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for subject in all_subjects %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td> {{ subject.name }} </td>
+          <td> {{ subject.hours }}</td>
+          <td>
+            {% if subject not in subjects_other_semester %}
+              {% if subject in subjects %}
+                <a class="btn btn-danger" href="{% url 'accounts:remove_subject' subject.id semester %}">Remove</a>
+              {% else %}
+                <a class="btn btn-info" href="{% url 'accounts:add_subject' subject.id semester %}">Add</a>
+              {% endif %}
+            {% else %}
+              {{ other_semester }} semester
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+<!--end of subjects-->
+</div>
+
+{% endblock content %}
